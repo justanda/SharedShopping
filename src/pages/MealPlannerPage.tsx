@@ -16,7 +16,7 @@ const sampleRecipes = [
 ];
 
 const MealPlannerPage = () => {
-  const [currentWeek, setCurrentWeek] = useState<string>('Week of September 7, 2025');
+  const [currentWeek] = useState<string>('Week of September 7, 2025');
   const [selectedDay, setSelectedDay] = useState<string | null>(null);
   const [selectedMeal, setSelectedMeal] = useState<string | null>(null);
 

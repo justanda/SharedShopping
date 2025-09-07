@@ -62,7 +62,7 @@ const sampleLists: ShoppingList[] = [
 ];
 
 const ShoppingListsPage = () => {
-  const [lists, setLists] = useState<ShoppingList[]>(sampleLists);
+  const [lists] = useState<ShoppingList[]>(sampleLists);
   const [activeFilter, setActiveFilter] = useState<string>('all');
   
   const filteredLists = (() => {
