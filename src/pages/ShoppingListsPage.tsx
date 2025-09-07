@@ -167,6 +167,9 @@ const ShoppingListsPage = () => {
         completedItems: 0,
       };
 
+      // Log the new list (in a real app, we would save it to state or API)
+      console.log('Created new shopping list:', newList);
+
       // For demo purposes, we're just navigating to the detail page
       // In a real app, you would add the list to state first
       navigate(`/shopping-lists/${newId}`);
