@@ -3,19 +3,19 @@
  * with versioning support for schema migrations
  */
 
-const STORAGE_VERSION = '1.0.0';
-const VERSION_KEY = 'recipe_roulette_storage_version';
+const STORAGE_VERSION = "1.0.0";
+const VERSION_KEY = "recipe_roulette_storage_version";
 
 // Check and handle version migrations if needed
 const initializeStorage = (): void => {
   const currentVersion = localStorage.getItem(VERSION_KEY);
-  
+
   if (!currentVersion) {
     // First-time initialization
     localStorage.setItem(VERSION_KEY, STORAGE_VERSION);
     return;
   }
-  
+
   if (currentVersion !== STORAGE_VERSION) {
     // Handle migration between versions
     // This would contain logic to transform data structure between versions
@@ -44,24 +44,26 @@ const storageService = {
       if (item === null) {
         return defaultValue;
       }
-      
+
       // Parse stored JSON data
       const parsed = JSON.parse(item, (_, value) => {
         // Handle Date objects which are serialized as ISO strings
-        if (typeof value === 'string' && 
-            /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z$/.test(value)) {
+        if (
+          typeof value === "string" &&
+          /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z$/.test(value)
+        ) {
           return new Date(value);
         }
         return value;
       });
-      
+
       return parsed as T;
     } catch (error) {
       console.error(`Error retrieving ${key} from storage:`, error);
       return defaultValue;
     }
   },
-  
+
   /**
    * Set an item in localStorage with proper serialization of complex objects
    */
@@ -73,7 +75,7 @@ const storageService = {
       console.error(`Error storing ${key} in storage:`, error);
     }
   },
-  
+
   /**
    * Remove an item from localStorage
    */
@@ -84,7 +86,7 @@ const storageService = {
       console.error(`Error removing ${key} from storage:`, error);
     }
   },
-  
+
   /**
    * Clear all application data from localStorage
    * Preserves the version information
@@ -93,18 +95,18 @@ const storageService = {
     try {
       // Save version before clearing
       const version = localStorage.getItem(VERSION_KEY);
-      
+
       // Clear all storage
       localStorage.clear();
-      
+
       // Restore version
       if (version) {
         localStorage.setItem(VERSION_KEY, version);
       }
     } catch (error) {
-      console.error('Error clearing storage:', error);
+      console.error("Error clearing storage:", error);
     }
-  }
+  },
 };
 
 export default storageService;
