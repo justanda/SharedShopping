@@ -46,7 +46,7 @@ const storageService = {
       }
       
       // Parse stored JSON data
-      const parsed = JSON.parse(item, (key, value) => {
+      const parsed = JSON.parse(item, (_, value) => {
         // Handle Date objects which are serialized as ISO strings
         if (typeof value === 'string' && 
             /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z$/.test(value)) {
